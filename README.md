@@ -3,6 +3,8 @@
 Keep a MacBook reachable over remote desktop **with the lid closed** — without an external monitor.
 
 [![Release](https://img.shields.io/github/v/release/Udovychenko-Dmytro/lidless)](https://github.com/Udovychenko-Dmytro/lidless/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/Udovychenko-Dmytro/lidless/total)](https://github.com/Udovychenko-Dmytro/lidless/releases)
+[![Visitors](https://hits.sh/github.com/Udovychenko-Dmytro/lidless.svg?style=flat&label=visitors&color=blue)](https://hits.sh/github.com/Udovychenko-Dmytro/lidless/)
 [![CI](https://github.com/Udovychenko-Dmytro/lidless/actions/workflows/ci.yml/badge.svg)](https://github.com/Udovychenko-Dmytro/lidless/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![macOS 13+](https://img.shields.io/badge/macOS-13%2B-black.svg)](#requirements)
