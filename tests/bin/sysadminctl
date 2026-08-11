@@ -1,0 +1,65 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `sysadminctl` for tests.
+#
+# It reproduces the two behaviours that make the real tool dangerous to trust,
+# both verified on macOS 26.5:
+#   1. `-screenLock status` writes its answer to STDERR, not stdout.
+#   2. `-screenLock <n>` without a usable password writes "Password is required!"
+#      to stderr and STILL EXITS 0. The value does not change.
+#
+# FAKE_SYSADMINCTL_STATE, when set, is a file holding the current value, so a
+# successful set is visible to a later status call.
+#
+# FAKE_SYSADMINCTL_LOG, when set, records every invocation verbatim — lets a
+# test assert that a -screenLock SET call was never made at all (as opposed to
+# made-but-refused, which the STATE file alone can't distinguish from
+# never-attempted).
+#
+set -uo pipefail
+
+FIXTURES="$(cd "$(dirname "${BASH_SOURCE[0]}")/../fixtures" && pwd)"
+STATE="${FAKE_SYSADMINCTL_STATE:-}"
+STAMP="2026-07-28 20:22:33.310 sysadminctl[44287:314608]"
+
+if [ -n "${FAKE_SYSADMINCTL_LOG:-}" ]; then
+  printf '%s\n' "$*" >> "$FAKE_SYSADMINCTL_LOG"
+fi
+
+report_value() {
+  local value="$1"
+  if [ "$value" = "off" ]; then
+    echo "$STAMP screenLock is off" >&2
+  elif [ "$value" = "immediate" ]; then
+    echo "$STAMP screenLock delay is immediate" >&2
+  else
+    echo "$STAMP screenLock delay is $value seconds" >&2
+  fi
+}
+
+if [ "${1:-}" != "-screenLock" ]; then
+  echo "fake sysadminctl: refusing unhandled arguments: $*" >&2
+  exit 64
+fi
+
+if [ "${2:-}" = "status" ]; then
+  if [ -n "$STATE" ] && [ -f "$STATE" ]; then
+    report_value "$(cat "$STATE")"
+  else
+    cat "${FAKE_SYSADMINCTL_STATUS:-$FIXTURES/sysadminctl-900.txt}" >&2
+  fi
+  exit 0
+fi
+
+# Setting the value.
+if [ "${FAKE_SYSADMINCTL_REFUSE:-0}" = "1" ]; then
+  echo "$STAMP Password is required!" >&2
+  exit 0          # <- the lie this whole test suite exists for
+fi
+
+if [ -n "$STATE" ]; then
+  printf '%s' "${2:-}" > "$STATE"
+fi
+exit 0

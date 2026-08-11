@@ -1,0 +1,16 @@
+System-wide power settings:
+ SleepDisabled		1
+Currently in use:
+ standby              1
+ Sleep On Power Button 1
+ hibernatefile        /var/vm/sleepimage
+ powernap             1
+ networkoversleep     0
+ disksleep            10
+ sleep                0 (sleep prevented by Claude, powerd, caffeinate, caffeinate)
+ hibernatemode        3
+ ttyskeepawake        1
+ displaysleep         10 (display sleep prevented by remoting_me2me_host)
+ tcpkeepalive         1
+ lowpowermode         1
+ womp                 1

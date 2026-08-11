@@ -1,0 +1,68 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `defaults` for tests, standing in for the app's preferences domain.
+#
+# FAKE_DEFAULTS points at a file of "key value" lines. A missing file means the
+# domain does not exist — the case that matters most, because the script has to
+# keep working for people who never run the app. An absent key exits 1 with a
+# message on stderr, exactly as the real tool does.
+#
+# `write` stores what a later `read` of the real tool would print back: a
+# `-bool true` becomes `1`, because that is what `defaults read` prints for a
+# boolean — the set_setting tests assert round-trips through this shim, so it
+# must not invent a fidelity the real pair does not have. Like the real tool,
+# a write to a missing domain creates it.
+#
+set -uo pipefail
+
+MODE="${1:-}"
+DOMAIN="${2:-}"
+KEY="${3:-}"
+STORE="${FAKE_DEFAULTS:-}"
+
+if [ "$MODE" = "write" ]; then
+  TYPE="${4:-}"
+  VALUE="${5:-}"
+  if [ -z "$STORE" ] || [ -z "$KEY" ] || [ -z "$TYPE" ] || [ -z "$VALUE" ]; then
+    echo "fake defaults: write needs FAKE_DEFAULTS, a key, a type and a value" >&2
+    exit 64
+  fi
+  case "$TYPE" in
+    -bool)
+      case "$VALUE" in
+        true|TRUE|yes|1) VALUE=1 ;;
+        false|FALSE|no|0) VALUE=0 ;;
+        *) echo "fake defaults: not a boolean: $VALUE" >&2; exit 1 ;;
+      esac ;;
+    -int|-string) : ;;
+    *) echo "fake defaults: refusing unhandled type: $TYPE" >&2; exit 64 ;;
+  esac
+  touch "$STORE"
+  TMP_STORE="$STORE.tmp.$$"
+  awk -v k="$KEY" '$1 != k' "$STORE" > "$TMP_STORE"
+  printf '%s %s\n' "$KEY" "$VALUE" >> "$TMP_STORE"
+  mv "$TMP_STORE" "$STORE"
+  exit 0
+fi
+
+if [ "$MODE" != "read" ]; then
+  echo "fake defaults: refusing unhandled arguments: $*" >&2
+  exit 64
+fi
+
+if [ -z "$STORE" ] || [ ! -f "$STORE" ]; then
+  echo "Domain $DOMAIN does not exist" >&2
+  exit 1
+fi
+
+value=$(awk -v k="$KEY" '$1 == k { $1 = ""; sub(/^ /, ""); found = 1; val = $0 }
+                         END { if (found) print val }' "$STORE")
+
+if [ -z "$value" ]; then
+  echo "The domain/default pair of ($DOMAIN, $KEY) does not exist" >&2
+  exit 1
+fi
+
+printf '%s\n' "$value"

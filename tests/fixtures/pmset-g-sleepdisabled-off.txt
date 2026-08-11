@@ -1,0 +1,4 @@
+System-wide power settings:
+Currently in use:
+ sleep                1
+ displaysleep         10

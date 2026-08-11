@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleName</key>
+	<string>Lidless</string>
+	<key>CFBundleDisplayName</key>
+	<string>Lidless</string>
+	<key>CFBundleExecutable</key>
+	<string>Lidless</string>
+	<key>CFBundleIdentifier</key>
+	<string>io.github.lidless</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2026 Dmytro Udovychenko. Licensed under GPL-3.0-only.</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<!-- Deliberately NOT LSUIElement. With it set, the menu bar item failed to
+	     render on the test machine and the app became unreachable: no Dock icon
+	     and no window either. The window is the guaranteed entry point. -->
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<!-- Window restoration is off: this is a single-window utility that gains
+	     nothing from it, and a restored window from an older build crashes the
+	     new one during the restore path. -->
+	<key>NSQuitAlwaysKeepsWindows</key>
+	<false/>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Lidless uses Terminal only when the screen-lock option needs your account password, so the password goes directly to sysadminctl.</string>
+</dict>
+</plist>

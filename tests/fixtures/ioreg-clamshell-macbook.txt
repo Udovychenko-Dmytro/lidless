@@ -1,0 +1,151 @@
++-o IOPMrootDomain  <class IOPMrootDomain, id 0x10000027f, registered, matched, active, busy 0 (424 ms), retain 180>
+  | {
+  |   "Wake Type" = "UserActivity Assertion"
+  |   "IOPMUserTriggeredFullWake" = Yes
+  |   "Supported Features" = {"WakeByCalendarDate"=32964615,"MaintenanceWakeCalendarDate"=33030151,"SleepServiceWakeCalendarKey"=33095687,"PowerByCalendarDate"=33161223,"PowerRelativeToShutdown"=33292295,"WakeOnMagicPacket"=33423367,"WakeRelativeToSleep"=33226759,"AdaptiveDimming"=32899079,"Hibernation"=32833543}
+  |   "IOPreviewBuffer" = ({"address"=0,"length"=17121280})
+  |   "DriverPMAssertionsDetailed" = ({"Assertions"=1,"ModifiedTime"=7667643803167873515,"Owner"="com.apple.pci.hostBridge.preventSleep","RegistryEntryID"=0,"CreatedTime"=0,"Level"=0,"ID"=500},{"Assertions"=1,"ModifiedTime"=7667643682908639532,"Owner"="com.apple.pci.hostBridge.preventSleep","RegistryEntryID"=0,"CreatedTime"=0,"Level"=0,"ID"=501},{"Assertions"=1,"ModifiedTime"=7667643682908621760,"Owner"="com.apple.pci.hostBridge.preventSleep","RegistryEntryID"=0,"CreatedTime"=0,"Level"=0,"ID"=502},{"Assertions"=1,"ModifiedTime"=0,"Owner"="AppleHPMARMSPMI","RegistryEntryID"=4294969048,"CreatedTime"=0,"Level"=0,"ID"=503},{"Assertions"=1,"ModifiedTime"=0,"Owner"="AppleHPMARMSPMI","RegistryEntryID"=4294969090,"CreatedTime"=0,"Level"=0,"ID"=504},{"Assertions"=1,"ModifiedTime"=0,"Owner"="AppleHPMARMSPMI","RegistryEntryID"=4294969136,"CreatedTime"=0,"Level"=0,"ID"=505},{"Assertions"=32,"ModifiedTime"=7667643661433775150,"Owner"="acio0","RegistryEntryID"=4294968941,"CreatedTime"=7667643661433775132,"Level"=0,"ID"=545},{"Assertions"=1,"ModifiedTime"=0,"Owner"="IOThunderboltControllerType5","RegistryEntryID"=4294969603,"CreatedTime"=7667643661433777570,"Level"=0,"ID"=546},{"Assertions"=32,"ModifiedTime"=7667643661433789406,"Owner"="acio1","RegistryEntryID"=4294968392,"CreatedTime"=7667643661433789307,"Level"=0,"ID"=547},{"Assertions"=1,"ModifiedTime"=0,"Owner"="IOThunderboltControllerType5","RegistryEntryID"=4294969651,"CreatedTime"=7667643661433792379,"Level"=0,"ID"=548},{"Assertions"=256,"ModifiedTime"=7667720936485370861,"Owner"="en0","RegistryEntryID"=4294971234,"CreatedTime"=7667643785987626938,"Level"=255,"ID"=552},{"Assertions"=512,"ModifiedTime"=0,"Owner"="com.apple.driver.mDNSOffloadUserClient: TCP Keepalive active on en0","RegistryEntryID"=4294978091,"CreatedTime"=7667716697352209722,"Level"=255,"ID"=563})
+  |   "IOHibernateState" = <00000000>
+  |   "IOPowerManagement" = {"ChildrenPowerState"=0,"DevicePowerState"=4,"CurrentPowerState"=4,"CapabilityFlags"=2,"MaxPowerState"=4}
+  |   "Standby Enabled" = Yes
+  |   "IOPMSystemSleepType" = 7
+  |   "IOAppPowerStateInterest" = "IOCommand is not serializable"
+  |   "System Capabilities" = 15
+  |   "BootSessionUUID" = "00000000-0000-4000-8000-000000000001"
+  |   "IOUserClientClass" = "RootDomainUserClient"
+  |   "Hibernate Mode" = 3
+  |   "Hibernate File" = "/var/vm/sleepimage"
+  |   "AppleClamshellCausesSleep" = Yes
+  |   "AppleClamshellState" = No
+  |   "SleepDisabled" = Yes
+  |   "DestroyFVKeyOnStandby" = No
+  |   "Last Sleep Reason" = "Clamshell Sleep"
+  |   "SystemPowerProfileOverrideDict" = {}
+  |   "DriverPMAssertions" = 768
+  |   "IOPMSystemSleepParameters" = <02000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000>
+  |   "Hibernate File Min" = 2147483648
+  |   "IOPMUserIsActive" = Yes
+  |   "IOPriorityPowerStateInterest" = "IOCommand is not serializable"
+  |   "IOGeneralInterest" = "IOCommand is not serializable"
+  |   "Wake Reason" = "smc.sysState.Wake(0x70070000) wifibt SMC.OutboxNotEmpty"
+  |   "SleepWakeUUID" = "00000000-0000-4000-8000-000000000002"
+  |   "IOSleepSupported" = Yes
+  | }
+  |
+  +-o IORootParent  <class IORootParent, id 0x100000280, !registered, !matched, active, busy 0, retain 7>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cb9, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cbc, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cbf, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cc5, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cc6, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cd3, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cd8, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cdc, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ced, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cee, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cef, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000cff, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000d5d, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000d8c, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000d93, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000dab, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000dbf, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000de3, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000dec, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ded, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000df2, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000e0a, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000e22, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000e3a, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000e40, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000e4c, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000eaa, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ec6, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ed4, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ed6, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ee3, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ee6, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000eec, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ef0, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000efe, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f08, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f0b, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f0c, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f26, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f2c, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f2e, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f30, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f38, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f3a, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f3d, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f45, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000f46, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000fa8, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000faa, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000faf, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000fb1, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000fd5, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000fd6, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000fd8, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100000ffb, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001006, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001016, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001026, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x10000102a, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001037, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001088, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x10000108a, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000010b7, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000010d1, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000010d3, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000010d6, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x10000111b, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001159, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x10000115a, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001162, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000011a2, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000012d0, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000012d4, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000012d8, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000012db, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000012e5, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x10000134b, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001455, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x10000145d, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001470, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000016ae, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000016af, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000016b0, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001a95, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001c6b, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001ca9, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001cab, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001cc7, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001d0f, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001d10, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001d1f, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001dab, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001dae, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001dbe, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001dbf, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001dc3, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001dce, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001dd1, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001dd4, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001eec, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001eee, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100001f56, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002175, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002456, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x10000245b, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002bda, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002bdb, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002c11, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002e6f, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002e72, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002e7e, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100002e8b, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100003153, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x10000317a, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x1000032f0, !registered, !matched, active, busy 0, retain 5>
+  +-o RootDomainUserClient  <class RootDomainUserClient, id 0x100007f64, !registered, !matched, active, busy 0, retain 5>

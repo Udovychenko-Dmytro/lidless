@@ -1,0 +1,12 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `osascript` for tests, so a test run never posts real notifications.
+# Appends the script it was handed to FAKE_OSASCRIPT_LOG.
+#
+set -uo pipefail
+if [ -n "${FAKE_OSASCRIPT_LOG:-}" ]; then
+  printf '%s\n' "$*" >> "$FAKE_OSASCRIPT_LOG"
+fi
+exit 0

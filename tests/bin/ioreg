@@ -1,0 +1,21 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `ioreg` for tests. The real one emits tens of kilobytes, which is what
+# made `ioreg | grep -q` die of SIGPIPE under `set -o pipefail`. Tests point
+# FAKE_IOREG at a fixture large enough to reproduce that reliably.
+#
+set -uo pipefail
+
+FIXTURES="$(cd "$(dirname "${BASH_SOURCE[0]}")/../fixtures" && pwd)"
+
+case "$*" in
+  "-r -k AppleClamshellState")
+    cat "${FAKE_IOREG:-$FIXTURES/ioreg-clamshell-macbook.txt}"
+    ;;
+  *)
+    echo "fake ioreg: refusing unhandled arguments: $*" >&2
+    exit 64
+    ;;
+esac

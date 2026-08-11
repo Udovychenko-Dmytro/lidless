@@ -1,0 +1,42 @@
+name: Bug report
+description: Report a reproducible Lidless problem
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not post passwords, serial numbers, UUIDs or other private system data.
+  - type: input
+    id: version
+    attributes:
+      label: Lidless version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and Mac model
+      placeholder: macOS 26.6, M4 MacBook Air
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include expected behavior and exact reproduction steps.
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: Sanitized status output
+      description: Remove serial numbers, UUIDs, usernames and paths before posting.
+      render: shell
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I have restored `disablesleep` to 0 or confirmed Lidless is intentionally active.
+          required: true

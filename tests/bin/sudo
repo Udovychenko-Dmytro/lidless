@@ -1,0 +1,57 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `sudo` for tests. Records what it was asked to run, verbatim and
+# including the -n flag, then runs nothing.
+#
+# FAKE_SUDO_DENY=1             refuse everything, as with no sudoers rule at all.
+# FAKE_SUDO_DENY_MATCH=x       refuse only commands containing x, which is what
+#                               the README's sudoers rule actually does: it
+#                               permits `pmset -a disablesleep` and nothing else.
+# FAKE_SUDO_PMSET_STATE=path   when the wrapped command is
+#                               `pmset -a disablesleep N`, write N to this file
+#                               — paired with tests/bin/pmset's
+#                               FAKE_PMSET_G_STATE, see that file for why.
+# FAKE_POWEROFF_REQUEST_FAIL=1 make the installed power-off helper reject the
+#                               shutdown request and return non-zero.
+#
+set -uo pipefail
+
+# Logged before -n is consumed, so a test can assert that the non-interactive
+# form was used — a background agent must never reach a password prompt.
+if [ -n "${FAKE_SUDO_LOG:-}" ]; then
+  printf '%s\n' "$*" >> "$FAKE_SUDO_LOG"
+fi
+
+if [ "${1:-}" = "-n" ]; then
+  if [ "${FAKE_SUDO_DENY:-0}" = "1" ]; then
+    echo "sudo: a password is required" >&2
+    exit 1
+  fi
+  match="${FAKE_SUDO_DENY_MATCH:-}"
+  if [ -n "$match" ]; then
+    case "$*" in
+      *"$match"*)
+        echo "sudo: a password is required" >&2
+        exit 1
+        ;;
+    esac
+  fi
+fi
+
+if [ -n "${FAKE_SUDO_PMSET_STATE:-}" ]; then
+  case "$*" in
+    *"pmset -a disablesleep 0"*) echo 0 > "$FAKE_SUDO_PMSET_STATE" ;;
+    *"pmset -a disablesleep 1"*) echo 1 > "$FAKE_SUDO_PMSET_STATE" ;;
+    *"/Library/PrivilegedHelperTools/io.github.lidless.poweroff"*)
+      if [ "${FAKE_POWEROFF_REQUEST_FAIL:-0}" = "1" ]; then
+        echo "The system shutdown request failed; Lidless was left active for retry." >&2
+        exit 1
+      fi
+      echo 0 > "$FAKE_SUDO_PMSET_STATE"
+      ;;
+  esac
+fi
+
+exit 0

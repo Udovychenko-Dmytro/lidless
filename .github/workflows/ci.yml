@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Install ShellCheck
+        run: command -v shellcheck >/dev/null || brew install shellcheck
+
+      - name: Run tests
+        run: ./tests/run.sh
+
+      - name: Check shell scripts
+        run: |
+          exclusions="SC1091,SC2012,SC2030,SC2031,SC2034,SC2329"
+          find tests/bin tools -type f -perm -111 -print0 | \
+            xargs -0 shellcheck -e "$exclusions"
+          shellcheck -e "$exclusions" build.sh lidless.sh tests/run.sh
+
+      - name: Build universal app
+        run: OUT="$RUNNER_TEMP/lidless-build" ./build.sh
+
+      - name: Verify bundle
+        run: |
+          app="$RUNNER_TEMP/lidless-build/Lidless.app"
+          plutil -lint "$app/Contents/Info.plist"
+          codesign --verify --deep --strict --verbose=2 "$app"
+          test "$(lipo -archs "$app/Contents/MacOS/Lidless")" = "x86_64 arm64" || \
+            test "$(lipo -archs "$app/Contents/MacOS/Lidless")" = "arm64 x86_64"
+          test "$(lipo -archs "$app/Contents/MacOS/lidless-display-rescue")" = "x86_64 arm64" || \
+            test "$(lipo -archs "$app/Contents/MacOS/lidless-display-rescue")" = "arm64 x86_64"
+          cmp LICENSE "$app/Contents/Resources/LICENSE.txt"
+          cmp TRADEMARKS.md "$app/Contents/Resources/TRADEMARKS.md"
+
+      - name: Require a clean checkout
+        run: test -z "$(git status --porcelain)"

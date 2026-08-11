@@ -1,0 +1,57 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `kill` for tests. Records what it was asked to signal and always
+# reports success by default, but never actually signals anything — the
+# pid in a sandbox pid file is a made-up number that could coincide with a
+# real process on the machine running the suite (see the FAKE_PS_COMM
+# comment in tests/run.sh's watchdog section), so this must intercept every
+# invocation, not just the ones a given test cares about.
+#
+# Whether the "kill" was actually effective is controlled separately, via
+# tests/bin/ps's FAKE_PS_COMM: leave it set to keep reporting the process
+# alive to simulate a kill that did not take, matching how
+# wait_for_caffeinate_exit() in lidless.sh decides success — by re-reading
+# the process table, never by kill's own exit status.
+#
+# FAKE_KILL_LOG=path         append each invocation's args, one line per call
+# FAKE_KILL_DENY=1            exit 1, as if the signal could not be delivered
+# FAKE_KILL_DEAD_MARKER=path  touch this file — paired with tests/bin/ps's
+#                             FAKE_PS_DEAD_MARKER to simulate a process that
+#                             was alive and then actually exited as a result
+#                             of this call.
+#
+set -uo pipefail
+
+# lidless.sh only ever calls `kill <pid>` or `kill <pid> <pid> ...` (via
+# xargs) — one or more plain positive-integer (>= 1) PIDs, no signal flags.
+# Match that shape and reject anything else with 64, same convention as the
+# other shims: an accidental signal/option change, a missing argument, or a
+# stray PID 0 should be caught by the suite, not pass silently.
+if [ "$#" -eq 0 ]; then
+  echo "fake kill: refusing a call with no arguments" >&2
+  exit 64
+fi
+for arg in "$@"; do
+  case "$arg" in
+    ''|0|*[!0-9]*)
+      echo "fake kill: refusing unhandled arguments: $*" >&2
+      exit 64
+      ;;
+  esac
+done
+
+if [ -n "${FAKE_KILL_LOG:-}" ]; then
+  printf '%s\n' "$*" >> "$FAKE_KILL_LOG"
+fi
+
+if [ "${FAKE_KILL_DENY:-0}" = "1" ]; then
+  exit 1
+fi
+
+if [ -n "${FAKE_KILL_DEAD_MARKER:-}" ]; then
+  touch "$FAKE_KILL_DEAD_MARKER"
+fi
+
+exit 0

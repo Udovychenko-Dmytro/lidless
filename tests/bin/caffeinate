@@ -1,0 +1,15 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `caffeinate` for tests exercising on()'s real "start a new session"
+# branch — never actually holds a system sleep-prevention assertion. Safe to
+# let this actually run in the background: it does nothing but sleep, so it
+# cannot affect the machine running the test suite the way the real
+# `/usr/bin/caffeinate` would. tests/bin/ps is separately and fully faked
+# (it ignores the real PID entirely and just prints $FAKE_PS_COMM), so this
+# doesn't need to report as "caffeinate" itself — the test controls that
+# independently via FAKE_PS_COMM.
+#
+set -uo pipefail
+sleep "${FAKE_CAFFEINATE_DURATION:-5}"

@@ -1,0 +1,1 @@
+2026-07-28 20:22:33.310 sysadminctl[44287:314608] screenLock delay is immediate

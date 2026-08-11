@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>io.github.lidless.check</string>
+
+	<!-- REPLACE this path with where you cloned the repo. The script needs
+	     lidless.sh next to it or one directory up, so pointing it at the
+	     checkout is the simplest thing that works. -->
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Users/YOUR_USERNAME/lidless/tools/lidless-check.sh</string>
+	</array>
+
+	<!-- Only needed if you keep the two scripts apart. Uncomment and give the
+	     full path to lidless.sh.
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>LIDLESS_SH</key>
+		<string>/Users/YOUR_USERNAME/lidless/lidless.sh</string>
+	</dict>
+	-->
+
+	<key>RunAtLoad</key>
+	<true/>
+
+	<!-- Every 5 minutes. The automatic shutdown limits are only as prompt as this
+	     interval, and a battery can fall a long way in an hour. The check is
+	     cheap, and exits silently when Lidless is off. -->
+	<key>StartInterval</key>
+	<integer>300</integer>
+
+	<!-- Under the user's own Logs directory, NOT /tmp. /private/tmp is
+	     drwxrwxrwt: the sticky bit stops another local user deleting this path,
+	     not creating it first. A plain file they create is a file they can read
+	     the watchdog's output from; a symlink they create is one launchd — running
+	     as you — would append that output into, ~/.zshenv included. launchd does
+	     not expand ~, so this path carries the same /Users/YOUR_USERNAME
+	     placeholder as the one above; the README replaces both in one pass. -->
+	<key>StandardOutPath</key>
+	<string>/Users/YOUR_USERNAME/Library/Logs/Lidless/lidless-check.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/YOUR_USERNAME/Library/Logs/Lidless/lidless-check.log</string>
+</dict>
+</plist>

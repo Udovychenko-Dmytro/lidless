@@ -1,0 +1,23 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `ps` for tests, so is_caffeinated() can be exercised without starting a
+# real caffeinate. FAKE_PS_COMM is what `ps -p <pid> -o comm=` prints; an empty
+# value means "no such process", which is how a stale PID file behaves.
+#
+# FAKE_PS_DEAD_MARKER=path   if this file exists, report "no such process"
+#                             regardless of FAKE_PS_COMM — paired with
+#                             tests/bin/kill's FAKE_KILL_DEAD_MARKER to
+#                             simulate a process that was alive, then actually
+#                             exited partway through a poll loop.
+#
+set -uo pipefail
+
+if [ -n "${FAKE_PS_DEAD_MARKER:-}" ] && [ -f "$FAKE_PS_DEAD_MARKER" ]; then
+  exit 0
+fi
+
+printf '%s' "${FAKE_PS_COMM:-}"
+[ -n "${FAKE_PS_COMM:-}" ] && printf '\n'
+exit 0

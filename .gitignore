@@ -1,0 +1,18 @@
+# Built by ./build.sh. The finished bundle is committed on purpose, so the app
+# can be run from a clone without a toolchain — see README "Build and run".
+# Nothing else the build drops in here is: the private intermediates directory
+# (object files, per-arch slices, compiler logs) and lidless-icon.log survive
+# only failed builds, and committing them would publish a broken build's debris.
+build/*
+!build/Lidless.app
+
+# Only if you built with OUT=dist
+dist/
+
+# Output location before the build moved into build/. Harmless once gone.
+# Anchored with a leading slash: unanchored, it matches at ANY depth, which
+# silently re-ignored build/Lidless.app and beat the negation above (last match
+# wins, and this line is later in the file).
+/Lidless.app/
+
+.DS_Store

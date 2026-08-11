@@ -1,0 +1,63 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `pmset` for tests. Prints a fixture instead of touching the real system.
+# Which fixture is chosen by environment variables holding absolute paths, set
+# by tests/run.sh. Arguments are matched the way lidless.sh actually calls it.
+#
+# FAKE_PMSET_FAIL=1        every call exits 1 with no output, simulating a
+#                           probe that failed outright (as opposed to
+#                           succeeding with malformed/empty output, which the
+#                           fixture cases below already cover).
+# FAKE_PMSET_FAIL_PS=1     only `-g ps`/`-g batt` (the power-source probe)
+#                           fails — lets a test drive a battery-probe failure
+#                           independently of the lid probe, which reuses the
+#                           same underlying command in production.
+# FAKE_PMSET_G_STATE=path  if set and the file exists, `-g` synthesizes
+#                           "SleepDisabled <content>" from this file instead
+#                           of the static FAKE_PMSET_G fixture — paired with
+#                           tests/bin/sudo's FAKE_SUDO_PMSET_STATE so a
+#                           successful `sudo -n pmset -a disablesleep N` is
+#                           reflected in the next `-g` read. Lets off()'s
+#                           re-verify-by-re-reading step (docs/ARCHITECTURE.md's
+#                           rule, applied to pmset) be tested end to end
+#                           instead of assumed.
+#
+set -uo pipefail
+
+FIXTURES="$(cd "$(dirname "${BASH_SOURCE[0]}")/../fixtures" && pwd)"
+
+if [ "${FAKE_PMSET_FAIL:-0}" = "1" ]; then
+  exit 1
+fi
+
+case "$*" in
+  "-g ps"|"-g batt")
+    if [ "${FAKE_PMSET_FAIL_PS:-0}" = "1" ]; then
+      exit 1
+    fi
+    ;;
+esac
+
+if [ "$*" = "-g" ] && [ -n "${FAKE_PMSET_G_STATE:-}" ] && [ -f "$FAKE_PMSET_G_STATE" ]; then
+  printf 'SleepDisabled\t\t%s\n' "$(cat "$FAKE_PMSET_G_STATE")"
+  exit 0
+fi
+
+case "$*" in
+  "-g custom")
+    cat "${FAKE_PMSET_CUSTOM:-$FIXTURES/pmset-custom-macbook.txt}"
+    ;;
+  "-g ps"|"-g batt")
+    cat "${FAKE_PMSET_PS:-$FIXTURES/pmset-ps-ac.txt}"
+    ;;
+  "-g")
+    cat "${FAKE_PMSET_G:-$FIXTURES/pmset-g-sleepdisabled-on.txt}"
+    ;;
+  *)
+    # Anything that would have changed system state is a test bug, not a pass.
+    echo "fake pmset: refusing unhandled arguments: $*" >&2
+    exit 64
+    ;;
+esac

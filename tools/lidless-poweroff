@@ -1,0 +1,54 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Root-owned automatic shutdown helper installed by
+# tools/install-auto-shutdown.sh. It accepts no arguments: the corresponding
+# sudoers rule therefore grants one fixed operation and no general shell or
+# pmset access.
+
+set -euo pipefail
+
+LIDLESS_POWEROFF_VERSION="2"
+PMSET_PATH="/usr/bin/pmset"
+SHUTDOWN_PATH="/sbin/shutdown"
+
+request_system_shutdown() {
+  "$SHUTDOWN_PATH" -h now
+}
+
+restore_normal_lid_sleep() {
+  "$PMSET_PATH" -a disablesleep 0
+}
+
+power_off() {
+  if [ "$#" -ne 0 ]; then
+    echo "lidless-poweroff accepts no arguments." >&2
+    return 64
+  fi
+  if [ "$(id -u)" -ne 0 ]; then
+    echo "lidless-poweroff must run as root." >&2
+    return 77
+  fi
+
+  # Register the halt while the closed-lid sleep guard is still active. If the
+  # order is reversed, a closed MacBook can sleep in the fork/exec gap before
+  # shutdown is requested, consuming the deadline without ever powering off.
+  if ! request_system_shutdown; then
+    echo "The system shutdown request failed; Lidless was left active for retry." >&2
+    return 1
+  fi
+
+  # Best effort after the kernel has accepted the shutdown request. The process
+  # may be terminated before this finishes; that leaves SleepDisabled=1 for the
+  # next boot, which Lidless detects and reports as an orphaned setting. That is
+  # visible and recoverable, unlike silently sleeping before the halt request.
+  if ! restore_normal_lid_sleep; then
+    echo "Shutdown was accepted, but normal lid sleep could not be restored before teardown." >&2
+  fi
+  return 0
+}
+
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+  power_off "$@"
+fi

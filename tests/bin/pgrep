@@ -1,0 +1,29 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Dmytro Udovychenko
+#
+# Fake `pgrep` for tests. Prints nothing by default, so the real caffeinate
+# processes on the machine running the tests are never listed — and therefore
+# never killed by a test that has "stop all caffeinate" turned on.
+#
+# FAKE_PGREP_STATUS=N  force an explicit exit status after printing any
+#                      configured output; status 2 models an enumeration error.
+#
+set -uo pipefail
+printf '%s' "${FAKE_PGREP_OUT:-}"
+if [ -n "${FAKE_PGREP_OUT:-}" ]; then printf '\n'; fi
+if [ -n "${FAKE_PGREP_STATUS:-}" ]; then
+  case "$FAKE_PGREP_STATUS" in
+    *[!0-9]*|'')
+      echo "fake pgrep: invalid FAKE_PGREP_STATUS: $FAKE_PGREP_STATUS" >&2
+      exit 64
+      ;;
+  esac
+  if [ "$FAKE_PGREP_STATUS" -gt 255 ]; then
+    echo "fake pgrep: FAKE_PGREP_STATUS must be between 0 and 255" >&2
+    exit 64
+  fi
+  exit "$FAKE_PGREP_STATUS"
+fi
+if [ -z "${FAKE_PGREP_OUT:-}" ]; then exit 1; fi
+exit 0
